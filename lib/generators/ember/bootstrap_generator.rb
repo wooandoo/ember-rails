@@ -29,8 +29,14 @@ module Ember
         end
       end
 
+      def activate_component
+        create_file "config/initializers/ember.rb", "#{application_name.camelize}::Application.config.handlebars.by_component = true
+        "
+      end
+
       def create_dir_layout
-        %W{models controllers views routes helpers templates}.each do |dir|
+        # %W{models controllers views routes helpers templates}.each do |dir|
+        %W{models components helpers}.each do |dir|
           empty_directory "#{ember_path}/#{dir}"
           create_file "#{ember_path}/#{dir}/.gitkeep" unless options[:skip_git]
         end

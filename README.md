@@ -120,6 +120,13 @@ It will be translated as :
         {{#view Ember.Button}}OK{{/view}}
     </script>
 
+
+## Create a new application
+
+  rails g ember:install --head
+  rails g ember:bootstrap
+
+
 ## Note on Patches/Pull Requests
 
 1. Fork the project.
