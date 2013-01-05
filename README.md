@@ -21,7 +21,7 @@ production mode, and the development build otherwise.
 
 ## Architecture
 
-Ember does not require an organized file structure. However, ember-rails allows you 
+Ember does not require an organized file structure. However, ember-rails allows you
 to use `rails g ember:bootstrap` to create the following directory structure under `app/assets/javascripts`:
 
     controllers/
@@ -31,8 +31,23 @@ to use `rails g ember:bootstrap` to create the following directory structure und
     templates/
     views/
 
+Or if you configurate this plugin by component
+
+  config.handlebars.by_component = true
+
+then the directory structure under `app/assets/javascripts` has to be just:
+
+  components/
+
+And so, you create all file for a component in a subfoder:
+
+- route
+- controller
+- view
+- template (handlebars)
+
 Additionally, it will add the following lines to `app/assets/javascripts/application.js`.
-By default, it uses the Rails Application's name and creates an `rails_app_name.js` 
+By default, it uses the Rails Application's name and creates an `rails_app_name.js`
 file to setup application namespace and initial requires:
 
     //= require ember
