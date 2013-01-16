@@ -6,6 +6,12 @@ The gem will also pre-compile your handlebars templates when building your asset
 
 You can see an example of how to use the gem [here](https://github.com/keithpitt/ember-rails-example). There is also a great tutorial by [Dan Gebhardt](https://twitter.com/#!/dgeb) called "[Beginning Ember.js on Rails](http://www.cerebris.com/blog/2012/01/24/beginning-ember-js-on-rails-part-1/)" which is a great read if your just starting out with Rails and Ember.js
 
+
+## Notes
+
+This fork updates the generation of ember-rails. The logic is to group files by component, and not by type.
+
+
 ## Getting started
 
 Add the gem to your application Gemfile:
@@ -24,22 +30,11 @@ production mode, and the development build otherwise.
 Ember does not require an organized file structure. However, ember-rails allows you
 to use `rails g ember:bootstrap` to create the following directory structure under `app/assets/javascripts`:
 
-    controllers/
+    components/
     helpers/
     models/
-    routes/
-    templates/
-    views/
 
-Or if you configurate this plugin by component
-
-  config.handlebars.by_component = true
-
-then the directory structure under `app/assets/javascripts` has to be just:
-
-  components/
-
-And so, you create all file for a component in a subfoder:
+And so, you create all file for a component in just one folder:
 
 - route
 - controller
@@ -59,14 +54,10 @@ file to setup application namespace and initial requires:
       insert  app/assets/javascripts/application.js
       create  app/assets/javascripts/models
       create  app/assets/javascripts/models/.gitkeep
-      create  app/assets/javascripts/controllers
-      create  app/assets/javascripts/controllers/.gitkeep
-      create  app/assets/javascripts/views
-      create  app/assets/javascripts/views/.gitkeep
+      create  app/assets/javascripts/components
+      create  app/assets/javascripts/components/.gitkeep
       create  app/assets/javascripts/helpers
       create  app/assets/javascripts/helpers/.gitkeep
-      create  app/assets/javascripts/templates
-      create  app/assets/javascripts/templates/.gitkeep
       create  app/assets/javascripts/app.js
 
 If you want to avoid `.gitkeep` files, use the `skip git` option like

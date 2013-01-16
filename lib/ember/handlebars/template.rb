@@ -74,22 +74,22 @@ module Ember
 
       def template_path(path)
         root = configuration.templates_root
-        by_component = configuration.by_component || false
+        # by_component = configuration.by_component || false
 
-        if by_component
+        # if by_component
           path.gsub!(/^components\/?/, '')
           path = path.split('/')
           component_name = path.shift
-        else
-          if root.kind_of? Array
-            root.each do |root|
-              path.gsub!(/^#{Regexp.quote(root)}\//, '')
-            end
-          else
-            unless root.empty?
-              path.gsub!(/^#{Regexp.quote(root)}\/?/, '')
-            end
-          end
+        # else
+        #   if root.kind_of? Array
+        #     root.each do |root|
+        #       path.gsub!(/^#{Regexp.quote(root)}\//, '')
+        #     end
+        #   else
+        #     unless root.empty?
+        #       path.gsub!(/^#{Regexp.quote(root)}\/?/, '')
+        #     end
+        #   end
 
           path = path.split('/')
         end

@@ -29,10 +29,10 @@ module Ember
         end
       end
 
-      def activate_component
-        create_file "config/initializers/ember.rb", "#{application_name.camelize}::Application.config.handlebars.by_component = true
-        "
-      end
+      # def activate_component
+      #   create_file "config/initializers/ember.rb", "#{application_name.camelize}::Application.config.handlebars.by_component = true
+      #   "
+      # end
 
       def create_dir_layout
         # %W{models controllers views routes helpers templates}.each do |dir|
