@@ -90,9 +90,9 @@ module Ember
         #       path.gsub!(/^#{Regexp.quote(root)}\/?/, '')
         #     end
         #   end
-
-          path = path.split('/')
-        end
+        #
+        #  path = path.split('/')
+        # end
 
         path.join(configuration.templates_path_separator)
       end
