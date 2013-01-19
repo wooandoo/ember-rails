@@ -227,9 +227,10 @@ DS.ManyArray = DS.RecordArray.extend({
   fetch: function() {
     var references = get(this, 'content'),
         store = get(this, 'store'),
-        type = get(this, 'type');
+        type = get(this, 'type'),
+        owner = get(this, 'owner');
 
-    store.fetchUnloadedReferences(type, references);
+    store.fetchUnloadedReferences(type, references, owner);
   },
 
   // Overrides Ember.Array's replace method to implement
@@ -1455,9 +1456,9 @@ DS.Store = Ember.Object.extend(DS._Mappable, {
     then converts the needed `clientId`s to IDs and invokes `findMany`
     on the adapter.
   */
-  fetchUnloadedReferences: function(type, references) {
+  fetchUnloadedReferences: function(type, references, owner) {
     var neededReferences = this.neededReferences(type, references);
-    this.fetchMany(type, neededReferences);
+    this.fetchMany(type, neededReferences, owner);
   },
 
   /**
@@ -1471,7 +1472,7 @@ DS.Store = Ember.Object.extend(DS._Mappable, {
     method) or when the data underlying an existing relationship
     changes (via the `fetchUnloadedReferences` method).
   */
-  fetchMany: function(type, references) {
+  fetchMany: function(type, references, owner) {
     if (!references.length) { return; }
 
     var ids = map(references, function(reference) {
@@ -1479,7 +1480,7 @@ DS.Store = Ember.Object.extend(DS._Mappable, {
     });
 
     var adapter = this.adapterForType(type);
-    if (adapter && adapter.findMany) { adapter.findMany(this, type, ids); }
+    if (adapter && adapter.findMany) { adapter.findMany(this, type, ids, owner); }
     else { throw "Adapter is either null or does not implement `findMany` method"; }
   },
 
@@ -1541,7 +1542,7 @@ DS.Store = Ember.Object.extend(DS._Mappable, {
     if (!Ember.isArray(ids)) {
       var adapter = this.adapterForType(type);
       if (adapter && adapter.findHasMany) { adapter.findHasMany(this, record, relationship, ids); }
-      else { throw fmt("Adapter is either null or does not implement `findMany` method", this); }
+      else { throw fmt("Adapter is either null or does not implement `findHasMany` method", this); }
 
       return this.createManyArray(type, Ember.A());
     }
@@ -1580,7 +1581,7 @@ DS.Store = Ember.Object.extend(DS._Mappable, {
         }
       }
 
-      this.fetchMany(type, neededReferences);
+      this.fetchMany(type, neededReferences, record);
     } else {
       // all requested records are available
       manyArray.set('isLoaded', true);
@@ -7706,7 +7707,7 @@ DS.RESTAdapter = DS.Adapter.extend({
     });
   },
 
-  findMany: function(store, type, ids) {
+  findMany: function(store, type, ids, owner) {
     var root = this.rootForType(type);
     ids = this.serializeIds(ids);
 
@@ -7829,4 +7830,3 @@ DS.RESTAdapter = DS.Adapter.extend({
 //SOFTWARE.
 
 })();
-
